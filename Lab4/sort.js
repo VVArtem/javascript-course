@@ -1,156 +1,115 @@
 const SortLib = {
-    // Helpers
-
-    _handleUndefined(arr) {
-        const cleanArr = arr.filter(item => item !== undefined);
-        const undefCount = arr.length - cleanArr.length;
+  
+    // Wrapper
+    _execute(name, array, isAsc, algorithm) {
+        const stats = { comp: 0, swap: 0 };
         
-        if (undefCount > 0) {
-            console.warn(`Sparse Array Detected: ${undefCount} undefined elements moved to end.`);
-        }
-        return { cleanArr, undefCount };
+        // Handle Sparse Arrays
+        const cleanArr = array.filter(item => item !== undefined);
+        const undefCount = array.length - cleanArr.length;
+
+        // Run the specific sorting logic
+        algorithm(cleanArr, stats);
+
+        // Professional Console Logging
+        const mode = isAsc ? "ASC" : "DESC";
+        console.log(`%c[${name}] %c${mode} %c| Comps: ${stats.comp} | Swaps: ${stats.swap}`, 
+            "color: #3498db; font-weight: bold;", "color: #e67e22;", "color: #7f8c8d;");
+
+        // Restore undefined elements at the end
+        return [...cleanArr, ...new Array(undefCount).fill(undefined)];
     },
 
-    _restoreUndefined(arr, count) {
-        return [...arr, ...new Array(count).fill(undefined)];
+    // Helper
+    _compare(a, b, isAsc) {
+        return isAsc ? a > b : a < b;
     },
 
-    _compare(a, b, isAscending) {
-        return isAscending ? a > b : a < b;
-    },
+    // Sorting Methods
 
-    _logStats(name, stats, isAscending) {
-        const mode = isAscending ? "Ascending" : "Descending";
-        console.log(`%c=== ${name} (${mode}) ===`, "color: #3498db; font-weight: bold;");
-        console.log(`Comparisons: ${stats.comp} | Swaps/Moves: ${stats.swap}`);
-    },
-
-    // Sorting Algorithms
-
-    bubbleSort(array, isAscending = true) {
-        let stats = { comp: 0, swap: 0 };
-        let { cleanArr, undefCount } = this._handleUndefined(array);
-        const n = cleanArr.length;
-
-        for (let i = 0; i < n - 1; i++) {
-            for (let j = 0; j < n - i - 1; j++) {
-                stats.comp++;
-                if (this._compare(cleanArr[j], cleanArr[j + 1], isAscending)) {
-                    [cleanArr[j], cleanArr[j + 1]] = [cleanArr[j + 1], cleanArr[j]];
-                    stats.swap++;
-                }
-            }
-        }
-        this._logStats('Bubble Sort', stats, isAscending);
-        return this._restoreUndefined(cleanArr, undefCount);
-    },
-
-    selectionSort(array, isAscending = true) {
-        let stats = { comp: 0, swap: 0 };
-        let { cleanArr, undefCount } = this._handleUndefined(array);
-        const n = cleanArr.length;
-
-        for (let i = 0; i < n - 1; i++) {
-            let targetIdx = i;
-            for (let j = i + 1; j < n; j++) {
-                stats.comp++;
-                if (this._compare(cleanArr[targetIdx], cleanArr[j], isAscending)) {
-                    targetIdx = j;
-                }
-            }
-            if (targetIdx !== i) {
-                [cleanArr[i], cleanArr[targetIdx]] = [cleanArr[targetIdx], cleanArr[i]];
-                stats.swap++;
-            }
-        }
-        this._logStats('Selection Sort', stats, isAscending);
-        return this._restoreUndefined(cleanArr, undefCount);
-    },
-
-    insertionSort(array, isAscending = true) {
-        let stats = { comp: 0, swap: 0 };
-        let { cleanArr, undefCount } = this._handleUndefined(array);
-        const n = cleanArr.length;
-
-        for (let i = 1; i < n; i++) {
-            let key = cleanArr[i];
-            let j = i - 1;
-            
-            while (j >= 0) {
-                stats.comp++;
-                if (this._compare(cleanArr[j], key, isAscending)) {
-                    cleanArr[j + 1] = cleanArr[j];
-                    stats.swap++;
-                    j--;
-                } else {
-                    break; 
-                }
-            }
-            cleanArr[j + 1] = key;
-            stats.swap++;
-        }
-        this._logStats('Insertion Sort', stats, isAscending);
-        return this._restoreUndefined(cleanArr, undefCount);
-    },
-
-    shellSort(array, isAscending = true) {
-        let stats = { comp: 0, swap: 0 };
-        let { cleanArr, undefCount } = this._handleUndefined(array);
-        const n = cleanArr.length;
-
-        for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
-            for (let i = gap; i < n; i++) {
-                let temp = cleanArr[i];
-                let j = i;
-                
-                while (j >= gap) {
+    bubbleSort(arr, isAsc = true) {
+        return this._execute("Bubble", arr, isAsc, (data, stats) => {
+            for (let i = 0; i < data.length - 1; i++) {
+                for (let j = 0; j < data.length - i - 1; j++) {
                     stats.comp++;
-                    if (this._compare(cleanArr[j - gap], temp, isAscending)) {
-                        cleanArr[j] = cleanArr[j - gap];
+                    if (this._compare(data[j], data[j + 1], isAsc)) {
+                        [data[j], data[j + 1]] = [data[j + 1], data[j]];
                         stats.swap++;
-                        j -= gap;
-                    } else {
-                        break;
                     }
                 }
-                cleanArr[j] = temp;
-                stats.swap++;
             }
-        }
-        this._logStats('Shell Sort', stats, isAscending);
-        return this._restoreUndefined(cleanArr, undefCount);
+        });
     },
 
-    quickSort(array, isAscending = true) {
-        let stats = { comp: 0, swap: 0 };
-        let { cleanArr, undefCount } = this._handleUndefined(array);
+    selectionSort(arr, isAsc = true) {
+        return this._execute("Selection", arr, isAsc, (data, stats) => {
+            for (let i = 0; i < data.length - 1; i++) {
+                let minIdx = i;
+                for (let j = i + 1; j < data.length; j++) {
+                    stats.comp++;
+                    if (this._compare(data[minIdx], data[j], isAsc)) minIdx = j;
+                }
+                if (minIdx !== i) {
+                    [data[i], data[minIdx]] = [data[minIdx], data[i]];
+                    stats.swap++;
+                }
+            }
+        });
+    },
 
-        const partition = (arr, left, right) => {
-            const pivot = arr[Math.floor((left + right) / 2)];
-            let i = left - 1;
-            let j = right + 1;
-
-            while (true) {
-                do { i++; stats.comp++; } while (isAscending ? arr[i] < pivot : arr[i] > pivot);
-                do { j--; stats.comp++; } while (isAscending ? arr[j] > pivot : arr[j] < pivot);
-                
-                if (i >= j) return j;
-                [arr[i], arr[j]] = [arr[j], arr[i]];
+    insertionSort(arr, isAsc = true) {
+        return this._execute("Insertion", arr, isAsc, (data, stats) => {
+            for (let i = 1; i < data.length; i++) {
+                let key = data[i], j = i - 1;
+                while (j >= 0) {
+                    stats.comp++;
+                    if (this._compare(data[j], key, isAsc)) {
+                        data[j + 1] = data[j];
+                        stats.swap++;
+                        j--;
+                    } else break;
+                }
+                data[j + 1] = key;
                 stats.swap++;
             }
-        };
+        });
+    },
 
-        const sort = (arr, left, right) => {
-            if (left < right) {
-                let p = partition(arr, left, right);
-                sort(arr, left, p);
-                sort(arr, p + 1, right);
+    shellSort(arr, isAsc = true) {
+        return this._execute("Shell", arr, isAsc, (data, stats) => {
+            for (let gap = Math.floor(data.length / 2); gap > 0; gap = Math.floor(gap / 2)) {
+                for (let i = gap; i < data.length; i++) {
+                    let temp = data[i], j = i;
+                    while (j >= gap) {
+                        stats.comp++;
+                        if (this._compare(data[j - gap], temp, isAsc)) {
+                            data[j] = data[j - gap];
+                            stats.swap++;
+                            j -= gap;
+                        } else break;
+                    }
+                    data[j] = temp;
+                    stats.swap++;
+                }
             }
-        };
+        });
+    },
 
-        if (cleanArr.length > 0) sort(cleanArr, 0, cleanArr.length - 1);
-        
-        this._logStats('Quick Sort (Hoare)', stats, isAscending);
-        return this._restoreUndefined(cleanArr, undefCount);
+    quickSort(arr, isAsc = true) {
+        return this._execute("Quick", arr, isAsc, (data, stats) => {
+            const partition = (left, right) => {
+                const pivot = data[Math.floor((left + right) / 2)];
+                let i = left - 1, j = right + 1;
+                while (true) {
+                    do { i++; stats.comp++; } while (isAsc ? data[i] < pivot : data[i] > pivot);
+                    do { j--; stats.comp++; } while (isAsc ? data[j] > pivot : data[j] < pivot);
+                    if (i >= j) return j;
+                    [data[i], data[j]] = [data[j], data[i]];
+                    stats.swap++;
+                }
+            };
+            const sort = (l, r) => { if (l < r) { let p = partition(l, r); sort(l, p); sort(p + 1, r); } };
+            if (data.length > 0) sort(0, data.length - 1);
+        });
     }
 };

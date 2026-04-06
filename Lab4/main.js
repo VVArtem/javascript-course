@@ -1,42 +1,48 @@
-console.log("%c=== STARTING PERFORMANCE TESTING ===", "font-size: 16px; color: #2ecc71; font-weight: bold;");
-
-// Utility to ensure we don't mutate the original test data
-const cloneArray = (arr) => Array.from(arr);
-
-
-function runFullSuite(data) {
-    const methods = ['bubbleSort', 'selectionSort', 'insertionSort', 'shellSort', 'quickSort'];
-    
-    methods.forEach(method => {
-        // Run ascending sort
-        SortLib[method](cloneArray(data), true);
-    });
-
-    // Descending QuickSort for comparison
-    return SortLib.quickSort(cloneArray(data), false);
+// Function to copy array
+function makeCopy(myArr) {
+    let newArr = [];
+    for (let i = 0; i < myArr.length; i++) {
+        newArr.push(myArr[i]);
+    }
+    return newArr;
 }
 
-// 1.2.3 DENSE ARRAY TEST (100 Elements) ---
-console.log("\n%c*** 1.2.3 DENSE ARRAY (Fully Populated) ***", "font-size: 14px; background: #34495e; color: white; padding: 2px;");
+console.log("--- START TEST ---");
 
-const denseArray = Array.from({ length: 100 }, () => Math.floor(Math.random() * 1000));
+// 1.2.3 TEST DENSE ARRAY (100)
+console.log("\n\n1.2.3 DENSE ARRAY TEST\n");
 
-console.log("Original Data (First 10):", denseArray.slice(0, 10).join(', ') + '...');
-runFullSuite(denseArray);
-
-
-// 1.2.4 SPARSE ARRAY TEST (100 Elements) ---
-console.log("\n%c*** 1.2.4 SPARSE ARRAY (Contains Empty Slots) ***", "font-size: 14px; background: #34495e; color: white; padding: 2px;");
-
-const sparseArray = new Array(100);
+// Make array with 100 random numbers
+let array1 = [];
 for (let i = 0; i < 100; i++) {
-    // 80% chance to fill the slot, 20% remains 'undefined'
+    array1.push(Math.floor(Math.random() * 1000));
+}
+
+console.log("Original data:", array1.slice(0, 10));
+
+// Start sorting
+SortLib.bubbleSort(makeCopy(array1), true);
+SortLib.selectionSort(makeCopy(array1), true);
+SortLib.insertionSort(makeCopy(array1), true);
+SortLib.shellSort(makeCopy(array1), true);
+SortLib.quickSort(makeCopy(array1), true);
+
+// 1.2.4 TEST SPARSE ARRAY (with undefined)
+console.log("\n\n1.2.4 SPARSE ARRAY TEST (with undefined)\n");
+
+let array2 = new Array(100);
+for (let i = 0; i < 100; i++) {
+    // some elements are empty
     if (Math.random() > 0.2) {
-        sparseArray[i] = Math.floor(Math.random() * 1000);
+        array2[i] = Math.floor(Math.random() * 1000);
     }
 }
 
-const resQuickSparse = runFullSuite(sparseArray);
+SortLib.bubbleSort(makeCopy(array2), true);
+SortLib.selectionSort(makeCopy(array2), true);
+SortLib.insertionSort(makeCopy(array2), true);
+SortLib.shellSort(makeCopy(array2), true);
+let result = SortLib.quickSort(makeCopy(array2), true);
 
-console.log("Hoare (QuickSort) Result for Sparse Array (Last 25 elements):");
-console.log(resQuickSparse.slice(-25));
+console.log("Result (look at the end for undefined):");
+console.log(result.slice(75, 100)); // Show last 25 elements

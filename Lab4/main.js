@@ -9,7 +9,7 @@ function makeCopy(myArr) {
 
 console.log("--- START TEST ---");
 
-// 1.2.3 TEST DENSE ARRAY (100)
+// 1.2.3 DENSE ARRAY
 console.log("\n\n1.2.3 DENSE ARRAY TEST\n");
 
 // Make array with 100 random numbers
@@ -27,7 +27,7 @@ SortLib.insertionSort(makeCopy(array1), true);
 SortLib.shellSort(makeCopy(array1), true);
 SortLib.quickSort(makeCopy(array1), true);
 
-// 1.2.4 TEST SPARSE ARRAY (with undefined)
+// 1.2.4 SPARSE ARRAY (with undefined)
 console.log("\n\n1.2.4 SPARSE ARRAY TEST (with undefined)\n");
 
 let array2 = new Array(100);
@@ -44,5 +44,5 @@ SortLib.insertionSort(makeCopy(array2), true);
 SortLib.shellSort(makeCopy(array2), true);
 let result = SortLib.quickSort(makeCopy(array2), true);
 
-console.log("Result (look at the end for undefined):");
+console.log("\n\nResult (look at the end for undefined):");
 console.log(result.slice(75, 100)); // Show last 25 elements

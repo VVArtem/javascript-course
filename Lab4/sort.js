@@ -13,10 +13,12 @@ const SortLib = {
 
         // Professional Console Logging
         const mode = isAsc ? "ASC" : "DESC";
-        console.log("[${name}] | Comps: ${stats.comp} | Swaps: ${stats.swap}");
-
-        // Restore undefined elements at the end
-        return [...cleanArr, ...new Array(undefCount).fill(undefined)];
+        console.log("[" + name + "] | Comparisons: " + stats.comp + " | Swaps: " + stats.swap);
+        
+        for (var i = 0; i < undefCount; i++) {
+            cleanArr.push(undefined);
+        }
+        return cleanArr;
     },
 
     // Helper

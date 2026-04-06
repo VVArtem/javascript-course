@@ -4,14 +4,11 @@ const SortLib = {
     _execute(name, array, isAsc, algorithm) {
         const stats = { comp: 0, swap: 0 };
         
-        // Handle Sparse Arrays
         const cleanArr = array.filter(item => item !== undefined);
         const undefCount = array.length - cleanArr.length;
 
-        // Run the specific sorting logic
         algorithm(cleanArr, stats);
 
-        // Professional Console Logging
         const mode = isAsc ? "ASC" : "DESC";
         console.log("[" + name + "] | Comparisons: " + stats.comp + " | Swaps: " + stats.swap);
         

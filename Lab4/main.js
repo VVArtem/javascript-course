@@ -18,7 +18,7 @@ for (let i = 0; i < 100; i++) {
     array1.push(Math.floor(Math.random() * 1000));
 }
 
-console.log("Original data:", array1.slice(0, 20));
+console.log("Original data:", array1);
 
 // Start sorting
 SortLib.bubbleSort(makeCopy(array1), true);
@@ -38,7 +38,7 @@ for (let i = 0; i < 100; i++) {
     }
 }
 
-console.log("Original data:", array2.slice(0, 20));
+console.log("Original data:", array2);
 
 SortLib.bubbleSort(makeCopy(array2), true);
 SortLib.selectionSort(makeCopy(array2), true);

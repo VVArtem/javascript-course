@@ -13,8 +13,7 @@ const SortLib = {
 
         // Professional Console Logging
         const mode = isAsc ? "ASC" : "DESC";
-        console.log(`%c[${name}] %c${mode} %c| Comps: ${stats.comp} | Swaps: ${stats.swap}`, 
-            "color: #3498db; font-weight: bold;", "color: #e67e22;", "color: #7f8c8d;");
+        console.log("[${name}] | Comps: ${stats.comp} | Swaps: ${stats.swap}");
 
         // Restore undefined elements at the end
         return [...cleanArr, ...new Array(undefCount).fill(undefined)];

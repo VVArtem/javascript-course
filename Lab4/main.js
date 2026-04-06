@@ -27,6 +27,7 @@ SortLib.insertionSort(makeCopy(array1), true);
 SortLib.shellSort(makeCopy(array1), true);
 let result = SortLib.quickSort(makeCopy(array1), true);
 console.log("\n\nResult:");
+console.log(result);
 
 // 1.2.4 SPARSE ARRAY (with undefined)
 console.log("\n\n1.2.4 SPARSE ARRAY TEST (with undefined)\n");
@@ -48,4 +49,4 @@ SortLib.shellSort(makeCopy(array2), true);
 result = SortLib.quickSort(makeCopy(array2), true);
 
 console.log("\n\nResult (look at the end for undefined):");
-console.log(result.slice(75, 100)); // Show last 25 elements
+console.log(result);

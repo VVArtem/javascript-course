@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Reaction check</title>
+    <style>
+        #game-area {
+            position: relative;
+            overflow: hidden;
+
+            width: 99vw;
+            height: 90vh;
+        }
+
+        #target {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="menu">
+        <select id="difficulty" style="display: inline;">
+            <option value="easy">Easy</option>
+            <option value="middle">Medium</option>
+            <option value="hard">Not for you</option>
+        </select>
+
+        <input type="color" id="square-color" value="#ff0000">
+
+        <button id="start-btn">Start</button>
+    </div>
+
+    <div id="game-container" style="display: none;">
+        <div>Score: <span id="score">0</span> | Time: <span id="time">0.0</span> с</div>
+
+        <div id="game-area">
+            <div id="target"></div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

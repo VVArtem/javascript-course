@@ -6,26 +6,22 @@ let gameActive = false;
 let allLevels = [];
 let currentLevel = null;
 
-// Елементи DOM
 const moveDisplay = document.getElementById('move-count');
 const targetDisplay = document.getElementById('target-moves');
 const timerDisplay = document.getElementById('timer');
 const gridElement = document.getElementById('grid');
 
-// 1. Завантаження даних
 fetch('data/levels.json')
     .then(res => res.json())
     .then(data => {
         allLevels = data;
-        startNewGame(); // Запуск першої гри
+        startNewGame();
     });
 
-// 2. Функція запуску НОВОЇ гри (гарантовано інший варіант)
 function startNewGame() {
     let nextLevel;
     
     if (allLevels.length > 1) {
-        // Шукаємо рівень, який не дорівнює поточному
         do {
             nextLevel = allLevels[Math.floor(Math.random() * allLevels.length)];
         } while (currentLevel && nextLevel.id === currentLevel.id);
@@ -38,14 +34,12 @@ function startNewGame() {
     loadLevel(currentLevel);
 }
 
-// 3. Функція скидання (той самий рівень заново)
 function resetCurrentLevel() {
     if (!currentLevel) return;
     resetState();
     loadLevel(currentLevel);
 }
 
-// Очищення таймера та лічильників
 function resetState() {
     clearInterval(timerInterval);
     moves = 0;
@@ -56,7 +50,6 @@ function resetState() {
     gridElement.innerHTML = '';
 }
 
-// 4. Побудова поля
 function loadLevel(level) {
     targetDisplay.innerText = level.target;
     
@@ -112,11 +105,10 @@ function checkWin() {
         
         const isPerfect = moves <= currentLevel.target;
         alert(isPerfect ? 
-            `Excellent! You matched the target of ${currentLevel.target} moves!` : 
-            `Solved in ${moves} moves. Try to beat the target of ${currentLevel.target}!`);
-    }
+            `Nice! You did it in ${currentLevel.target} moves!` : 
+            `Done in ${moves} moves. Try to reach ${currentLevel.target} next time!`);
+   }
 }
 
-// Події для кнопок
 document.getElementById('new-game-btn').addEventListener('click', startNewGame);
 document.getElementById('reset-btn').addEventListener('click', resetCurrentLevel);

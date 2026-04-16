@@ -3,32 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lights Out 5x5 - Neo Edition</title>
+    <title>Lights Out</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="game-wrapper">
+    <div class="game-container">
         <h1>Lights Out</h1>
         
-        <div class="stats-container">
-            <div class="stat-box">
-                <span class="label">MOVES</span>
-                <span id="move-count" class="value">0</span>
-                <span class="target-divider">/</span>
-                <span id="target-moves" class="value-target">0</span>
-            </div>
-            <div class="stat-box">
-                <span class="label">TIME</span>
-                <span id="timer" class="value">0</span><span class="unit">s</span>
-            </div>
+        <div class="stats">
+            Moves: <span id="move-count">0</span> / <span id="target-moves">0</span>
+            | Time: <span id="timer">0</span>s
         </div>
 
         <div id="grid" class="grid"></div>
 
         <div class="controls">
-            <button class="btn-secondary" id="reset-btn">RESET</button>
-            <button class="btn-primary" id="new-game-btn">NEW GAME</button>
+            <button id="reset-btn">Restart</button>
+            <button id="new-game-btn">New Game</button>
         </div>
     </div>
 

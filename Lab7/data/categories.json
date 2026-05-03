@@ -1,5 +1,5 @@
 [
-  {"id": 1, "name": "Електроніка", "shortname": "electronics", "notes": "Lorem ipsum dolor sit amet."},
-  {"id": 2, "name": "Одяг", "shortname": "clothing", "notes": ""},
-  {"id": 3, "name": "Дім та сад", "shortname": "home", "notes": "Consectetur adipiscing elit."}
+  {"id": 1, "name": "Електроніка", "shortname": "electronics", "notes": "Телефони, ноутбуки, дрони-камікадзе"},
+  {"id": 2, "name": "Одяг", "shortname": "clothing", "notes": "Маєчки, футболачки, шортікі"},
+  {"id": 3, "name": "Дім та сад", "shortname": "home", "notes": "База, ґгрунт, фундамент"}
 ]

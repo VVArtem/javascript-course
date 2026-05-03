@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Відображення списку категорій
-    async function showCategories() {
+    window.showCategories = async function() {
         const categories = await fetchData('data/categories.json');
         if (!categories) return;
 

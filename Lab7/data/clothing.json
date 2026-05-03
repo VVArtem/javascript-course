@@ -1,0 +1,33 @@
+{
+  "category_name": "Одяг",
+  "items": [
+    {
+      "id": 201,
+      "name": "Футболка Basic",
+      "shortname": "tshirt",
+      "description": "Бавовняна футболка високої якості. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "price": "450 ₴"
+    },
+    {
+      "id": 202,
+      "name": "Джинси Regular",
+      "shortname": "jeans",
+      "description": "Класичні сині джинси для щоденного використання. Надійні та зручні.",
+      "price": "1200 ₴"
+    },
+    {
+      "id": 203,
+      "name": "Куртка осіння",
+      "shortname": "jacket",
+      "description": "Легка куртка з водовідштовхувальним покриттям. Lorem ipsum.",
+      "price": "2800 ₴"
+    },
+    {
+      "id": 204,
+      "name": "Худі",
+      "shortname": "hoodie",
+      "description": "Тепле худі з капюшоном. Ідеально для прохолодної погоди.",
+      "price": "950 ₴"
+    }
+  ]
+}

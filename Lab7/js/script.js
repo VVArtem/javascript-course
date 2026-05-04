@@ -2,53 +2,49 @@ document.addEventListener("DOMContentLoaded", function () {
     const mainContent = document.getElementById("main-content");
     const catalogLink = document.getElementById("catalog-link");
 
-    // Функція для завантаження JSON
     async function fetchData(url) {
         try {
             const response = await fetch(url);
             return await response.json();
         } catch (error) {
-            console.error("Помилка завантаження:", error);
-            mainContent.innerHTML = "<p class='text-danger'>Помилка завантаження даних.</p>";
+            console.error("Fetch error:", error);
+            mainContent.innerHTML = "<p class='text-danger'>Data fetch error.</p>";
         }
     }
 
-    // Відображення списку категорій
     window.showCategories = async function() {
         const categories = await fetchData('data/categories.json');
         if (!categories) return;
 
-        let html = "<h2 class='mb-4'>Категорії товарів</h2><div class='list-group mb-3'>";
+        let html = "<h2 class='mb-4'>Categories</h2><div class='list-group mb-3'>";
         
         categories.forEach(cat => {
             html += `
                 <a href="#" class="list-group-item list-group-item-action" onclick="showItems('${cat.shortname}')">
                     <strong>${cat.name}</strong> <br>
-                    <small class="text-muted">${cat.notes || 'Опис відсутній'}</small>
+                    <small class="text-muted">${cat.notes || 'No description'}</small>
                 </a>`;
         });
 
         html += `
             <a href="#" class="list-group-item list-group-item-action list-group-item-warning" id="specials-link">
-                <strong>Specials (Випадкова категорія)</strong>
+                <strong>Specials (Random category)</strong>
             </a>
         </div>`;
 
         mainContent.innerHTML = html;
 
-        // Логіка для Specials
         document.getElementById("specials-link").onclick = function() {
             const randomCat = categories[Math.floor(Math.random() * categories.length)];
             showItems(randomCat.shortname);
         };
     }
 
-    // Відображення товарів конкретної категорії
     window.showItems = async function(shortname) {
         const data = await fetchData(`data/${shortname}.json`);
         if (!data) return;
 
-        let html = `<button class="btn btn-secondary mb-3" onclick="showCategories()">← Назад до категорій</button>`;
+        let html = `<button class="btn btn-secondary mb-3" onclick="showCategories()">Back to categories</button>`;
         html += `<h2 class="mb-4">${data.category_name}</h2>`;
         html += `<div class="row">`;
 

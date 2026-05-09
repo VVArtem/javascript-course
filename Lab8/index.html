@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адаптивна сторінка</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Навігація -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">MyBrand</div>
+            
+            <!-- Кнопка Гамбургер (тільки для Medium) -->
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- Меню -->
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#">🏠 Головна</a></li>
+                <li><a href="#">📂 Каталог</a></li>
+                <li><a href="#">🎁 Акції</a></li>
+                <li><a href="#">📞 Контакти</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Карусель -->
+    <section class="carousel-container">
+        <div class="carousel" id="carousel">
+            <div class="carousel-inner" id="carousel-inner">
+                <div class="slide"><img src="https://placehold.co/1200x400/orange/white?text=Slide+1" alt="1"></div>
+                <div class="slide"><img src="https://placehold.co/1200x400/blue/white?text=Slide+2" alt="2"></div>
+                <div class="slide"><img src="https://placehold.co/1200x400/green/white?text=Slide+3" alt="3"></div>
+            </div>
+            
+            <button class="prev" id="prevBtn">&#10094;</button>
+            <button class="next" id="nextBtn">&#10095;</button>
+
+            <div class="dots-container" id="dots-container"></div>
+        </div>
+    </section>
+
+    <!-- Контент залежно від пристрою -->
+    <section class="device-content">
+        <div class="large-only">
+            <h2>Тільки для Large пристроїв (≥768px)</h2>
+            <div class="grid">
+                <img src="https://placehold.co/300x200?text=Large+Img+1" alt="L1">
+                <img src="https://placehold.co/300x200?text=Large+Img+2" alt="L2">
+                <img src="https://placehold.co/300x200?text=Large+Img+3" alt="L3">
+            </div>
+        </div>
+
+        <div class="medium-only">
+            <h2>Тільки для Medium пристроїв (<768px)</h2>
+            <div class="grid">
+                <img src="https://placehold.co/300x200?text=Mobile+Img+1" alt="M1">
+                <img src="https://placehold.co/300x200?text=Mobile+Img+2" alt="M2">
+            </div>
+        </div>
+    </section>
+
+    <script src="main.js"></script>
+</body>
+</html>
